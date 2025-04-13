@@ -27,6 +27,8 @@ services:
                   path: requirements.txt
                 - action: rebuild
                   path: Dockerfile
+                - action: rebuild
+                  path: run_server.sh
 
 volumes:
     mysql_data:
