@@ -1,0 +1,41 @@
+services:
+    db:
+        image: mysql:8.0.33
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_NAME}
+        volumes:
+            - mysql_data:/var/lib/mysql
+
+    backend:
+        build: .
+        depends_on:
+            - db
+        ports:
+            - 8000:8000
+        env_file:
+            - .env
+        # environment:
+        #     DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+        #     PRODUCTION: ${PRODUCTION}
+        #     ADMIN_ENDPOINT: ${ADMIN_ENDPOINT}
+        #     DB_NAME: ${DB_NAME}
+        #     DB_USER: ${DB_USER}
+        #     DB_PASSWORD: ${DB_PASSWORD}
+        #     DB_HOST: ${DB_HOST}
+        volumes:
+            - backend_data:/app/.venv/
+
+        develop:
+            watch:
+                - action: sync
+                  path: .
+                  target: /app
+                - action: rebuild
+                  path: requirements.txt
+                - action: rebuild
+                  path: Dockerfile
+
+volumes:
+    mysql_data:
+    backend_data:
