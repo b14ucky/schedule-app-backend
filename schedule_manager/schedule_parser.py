@@ -111,6 +111,10 @@ class ScheduleParser:
         df = df.drop(
             ["FULL TIME", "PART TIME 3/4", "PART TIME 1/2", "PART TIME 1/4", "INSTRUKTORZY"]
         )
+
+        # if the first column name is NaN df.drop won't work,
+        # so I fillna with random values to prevent that from happening
+        df.columns = df.columns.fillna("peekaboo")
         df = df.drop(df.columns[0], axis=1)
 
         self._df = df
