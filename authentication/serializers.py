@@ -10,18 +10,10 @@ class TokenObtainPairSerializer_(TokenObtainPairSerializer):
         token = super().get_token(user)
         token["email"] = user.email
         token["first_name"] = user.first_name
+        token["last_name"] = user.last_name
 
         return token
 
     def validate(self, attrs):
         attrs["username"] = attrs.get("email")
-        data = super().validate(attrs)
-
-        data["user"] = {  # type: ignore
-            "id": self.user.id,  # type: ignore
-            "email": self.user.email,  # type: ignore
-            "first_name": self.user.first_name,  # type: ignore
-            "last_name": self.user.last_name,  # type: ignore
-        }
-
-        return data
+        return super().validate(attrs)
