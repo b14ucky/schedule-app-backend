@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication",
     "rest_framework_simplejwt.token_blacklist",
+    "schedule_manager",
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,7 @@ ROOT_URLCONF = "schedule_app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

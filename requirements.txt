@@ -6,3 +6,5 @@ dotenv
 whitenoise
 mysqlclient
 django-cors-headers
+pandas
+openpyxl
