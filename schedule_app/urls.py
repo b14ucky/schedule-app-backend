@@ -22,5 +22,6 @@ from django.conf import settings
 
 urlpatterns = [
     path(f"{settings.ADMIN_ENDPOINT}/", admin.site.urls),
-    path(f"auth/", include("authentication.urls")),
+    path("auth/", include("authentication.urls")),
+    path("api/", include("schedule_manager.urls")),
 ]
