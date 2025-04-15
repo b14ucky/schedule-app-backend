@@ -28,6 +28,13 @@ class EmployeeScheduleView(APIView):
         user_id = token["user_id"]
 
         schedule = EmployeeSchedule.objects.get(user=user_id, month=month, year=year)
+
+        if not schedule:
+            return Response(
+                {"Not Found": "Schedule for given parameters was not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
         shifts = Shift.objects.filter(schedule=schedule)
         data = [ShiftSerializer(shift).data for shift in shifts]
 
