@@ -25,11 +25,19 @@ class EmployeeScheduleView(APIView):
             )
 
         token = request.auth
+
+        if not token:
+            return Response(
+                {"Unauthorized": "You have to log in to see this data"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
         user_id = token["user_id"]
 
-        schedule = EmployeeSchedule.objects.get(user=user_id, month=month, year=year)
+        try:
+            schedule = EmployeeSchedule.objects.get(user=user_id, month=month, year=year)
 
-        if not schedule:
+        except EmployeeSchedule.DoesNotExist:
             return Response(
                 {"Not Found": "Schedule for given parameters was not found"},
                 status=status.HTTP_404_NOT_FOUND,
