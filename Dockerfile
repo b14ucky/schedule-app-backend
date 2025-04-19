@@ -8,4 +8,4 @@ RUN  pip install -r requirements.txt
 
 COPY . .
 
-CMD ./run_server.sh
+CMD bash ./run_server.sh
